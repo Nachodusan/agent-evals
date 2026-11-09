@@ -1,0 +1,686 @@
+{
+  "label": "Meta-Llama-3.1-8B-Instruct",
+  "repeats": 3,
+  "summary": {
+    "pass": 0,
+    "flaky": 1,
+    "fail": 7,
+    "strict_pass_rate": 0.0,
+    "attempt_pass_rate": 0.0833,
+    "total_cost_usd": 0.017203
+  },
+  "cases": [
+    {
+      "id": "count_orders",
+      "question": "How many orders are in the database?",
+      "tags": [],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "describe_table before run_sql": 3,
+        "no repeated calls": 1
+      },
+      "distinct_paths": {
+        "list_tables → run_sql → finish": 2,
+        "list_tables → list_tables → run_sql → finish": 1
+      },
+      "steps_mean": 6.67,
+      "steps_sd": 0.94,
+      "cost_mean_usd": 0.000821,
+      "latency_mean_ms": 3790.3,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "run_sql",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000725,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "describe_table before run_sql"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "list_tables",
+            "run_sql",
+            "finish"
+          ],
+          "steps": 8,
+          "cost_usd": 0.001013,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "describe_table before run_sql",
+            "no repeated calls"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "run_sql",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000725,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "describe_table before run_sql"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "top_customers_net",
+      "question": "Who are the top 5 customers by how much they actually spent? Exclude cancelled orders and subtract any refunds.",
+      "tags": [
+        "no_total_column",
+        "cents",
+        "cancelled_orders",
+        "refunds"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3,
+        "terminated cleanly": 1,
+        "no repeated calls": 1
+      },
+      "distinct_paths": {
+        "list_tables → describe_table → describe_table → describe_table → describe_table! → describe_table! → run_sql! → finish": 1,
+        "list_tables → describe_table! → describe_table! → describe_table → run_sql! → describe_table": 1,
+        "list_tables → describe_table! → describe_table! → describe_table! → run_sql! → finish": 1
+      },
+      "steps_mean": 9.33,
+      "steps_sd": 2.05,
+      "cost_mean_usd": 0.000878,
+      "latency_mean_ms": 9375.7,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "describe_table",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 9,
+          "cost_usd": 0.000416,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "describe_table",
+            "run_sql!",
+            "describe_table"
+          ],
+          "steps": 12,
+          "cost_usd": 0.001792,
+          "stopped_reason": "max_steps",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "terminated cleanly"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 7,
+          "cost_usd": 0.000426,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "revenue_by_category",
+      "question": "What is the total revenue per product category, excluding cancelled orders?",
+      "tags": [
+        "no_total_column",
+        "cents",
+        "cancelled_orders",
+        "join_through_items"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3
+      },
+      "distinct_paths": {
+        "list_tables → describe_table → describe_table → describe_table → run_sql! → finish": 3
+      },
+      "steps_mean": 7.0,
+      "steps_sd": 0.0,
+      "cost_mean_usd": 0.000475,
+      "latency_mean_ms": 10498.0,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 7,
+          "cost_usd": 0.000533,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 7,
+          "cost_usd": 0.000359,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 7,
+          "cost_usd": 0.000533,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "avg_order_value",
+      "question": "What is the average order value for completed orders?",
+      "tags": [
+        "no_total_column",
+        "cents",
+        "status_filter"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3,
+        "no repeated calls": 2
+      },
+      "distinct_paths": {
+        "list_tables → describe_table! → describe_table! → run_sql! → finish": 2,
+        "list_tables → describe_table → describe_table → run_sql! → finish": 1
+      },
+      "steps_mean": 6.0,
+      "steps_sd": 0.0,
+      "cost_mean_usd": 0.000294,
+      "latency_mean_ms": 4167.7,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.0003,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000297,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000284,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "price_drift",
+      "question": "Which products were sold for less than their current list price, and what is the largest gap?",
+      "tags": [
+        "historic_vs_list_price"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3,
+        "no repeated calls": 2
+      },
+      "distinct_paths": {
+        "list_tables → describe_table! → list_tables → describe_table! → describe_table → describe_table! → run_sql! → finish": 2,
+        "list_tables → describe_table → describe_table! → run_sql! → finish": 1
+      },
+      "steps_mean": 8.0,
+      "steps_sd": 1.41,
+      "cost_mean_usd": 0.000616,
+      "latency_mean_ms": 14790.7,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "list_tables",
+            "describe_table!",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 9,
+          "cost_usd": 0.000632,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000584,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "list_tables",
+            "describe_table!",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 9,
+          "cost_usd": 0.000632,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "orders_by_channel_q1",
+      "question": "How many orders came through each channel in the first quarter of 2026?",
+      "tags": [
+        "iso_date_strings"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3
+      },
+      "distinct_paths": {
+        "list_tables → describe_table → describe_table! → run_sql! → finish": 3
+      },
+      "steps_mean": 6.0,
+      "steps_sd": 0.0,
+      "cost_mean_usd": 0.000359,
+      "latency_mean_ms": 6181.3,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000361,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000361,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table!",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000356,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "customers_without_orders",
+      "question": "How many customers have never placed an order?",
+      "tags": [
+        "anti_join"
+      ],
+      "verdict": "flaky",
+      "passes": 2,
+      "total": 3,
+      "check_failures": {
+        "describe_table before run_sql": 1
+      },
+      "distinct_paths": {
+        "list_tables → describe_table → describe_table → run_sql → finish": 1,
+        "run_sql → finish": 1,
+        "list_tables → describe_table → run_sql → finish": 1
+      },
+      "steps_mean": 7.33,
+      "steps_sd": 2.49,
+      "cost_mean_usd": 0.001087,
+      "latency_mean_ms": 5564.7,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": true,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "run_sql",
+            "finish"
+          ],
+          "steps": 10,
+          "cost_usd": 0.001623,
+          "stopped_reason": "finished",
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "run_sql",
+            "finish"
+          ],
+          "steps": 4,
+          "cost_usd": 0.000489,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "describe_table before run_sql"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "run_sql",
+            "finish"
+          ],
+          "steps": 8,
+          "cost_usd": 0.00115,
+          "stopped_reason": "finished",
+          "failed_checks": [],
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "refund_rate",
+      "question": "What percentage of non-cancelled orders ended up with a refund?",
+      "tags": [
+        "cancelled_orders",
+        "ratio"
+      ],
+      "verdict": "fail",
+      "passes": 0,
+      "total": 3,
+      "check_failures": {
+        "answer matches reference rows": 3,
+        "reported SQL was actually run": 3,
+        "no repeated calls": 1,
+        "terminated cleanly": 1
+      },
+      "distinct_paths": {
+        "list_tables → describe_table → describe_table → run_sql! → finish": 1,
+        "list_tables → describe_table! → describe_table! → run_sql! → run_sql! → run_sql! → run_sql! → run_sql!": 1,
+        "list_tables → describe_table! → describe_table! → run_sql! → finish! → describe_table → describe_table → run_sql! → finish": 1
+      },
+      "steps_mean": 10.0,
+      "steps_sd": 2.94,
+      "cost_mean_usd": 0.001204,
+      "latency_mean_ms": 17317.7,
+      "attempts": [
+        {
+          "index": 0,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 6,
+          "cost_usd": 0.000619,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        },
+        {
+          "index": 1,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "run_sql!",
+            "run_sql!",
+            "run_sql!",
+            "run_sql!"
+          ],
+          "steps": 13,
+          "cost_usd": 0.00214,
+          "stopped_reason": "max_steps",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run",
+            "no repeated calls",
+            "terminated cleanly"
+          ],
+          "error": null
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "path": [
+            "list_tables",
+            "describe_table!",
+            "describe_table!",
+            "run_sql!",
+            "finish!",
+            "describe_table",
+            "describe_table",
+            "run_sql!",
+            "finish"
+          ],
+          "steps": 11,
+          "cost_usd": 0.000853,
+          "stopped_reason": "finished",
+          "failed_checks": [
+            "answer matches reference rows",
+            "reported SQL was actually run"
+          ],
+          "error": null
+        }
+      ]
+    }
+  ]
+}
