@@ -1,0 +1,21 @@
+[project]
+name = "agent-evals"
+version = "0.1.0"
+description = "Evaluate what an agent did, not just what it answered — trajectory checks, repeated runs, and a consistency score that makes flakiness impossible to ignore."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []                      # the core is stdlib only, on purpose
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["agent_evals"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
