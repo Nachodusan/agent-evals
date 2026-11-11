@@ -1,5 +1,7 @@
 # agent-evals
 
+[![tests](https://github.com/Nachodusan/agent-evals/actions/workflows/tests.yml/badge.svg)](https://github.com/Nachodusan/agent-evals/actions/workflows/tests.yml)
+
 Evaluate what an agent **did**, not just what it answered.
 
 Trajectory checks, repeated runs, and a verdict that refuses to round. No
